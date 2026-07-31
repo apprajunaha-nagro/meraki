@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────────────── */
+:root {
+  --color-primary: #8C5B6E;
+  --color-primary-dark: #6F4455;
+  --color-primary-light: #AA7C90;
+  --color-secondary: #F4D9CE;
+  --color-secondary-deep: #E7B8A6;
+  --color-secondary-tint: #FAF0EB;
+  --color-bg: #FAF6F0;
+  --color-bg-alt: #EFEBE5;
+  --color-card: #FFFFFF;
+  --color-text: #3E2A32;
+  --color-muted: #75626A;
+  --color-gold: #C7A96B;
+  --color-sage: #7C9473;
+  --color-rust: #B5544A;
+  --header-height: 72px;
+  --announcement-height: 40px;
+  --radius: 8px;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-height: 140px;
+  }
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-secondary;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  body {
+    @apply bg-cream text-charcoal font-sans antialiased;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-charcoal;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+
+  img, video, iframe, canvas, svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Tap Target Minimum (44x44px for WCAG & Mobile UX) */
+  button, input[type="button"], input[type="submit"], input[type="reset"] {
+    touch-action: manipulation;
+  }
+
+  /* Safe Area Support for iPhone Notches and Gesture Bars */
+  .safe-area-padding {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  a {
+    @apply text-charcoal;
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  ::selection {
+    background-color: var(--color-primary-light);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  input, select, textarea {
+    font-family: inherit;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-alt);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-primary-light);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+  }
+}
+
+/* ─── Component Utilities ─────────────────────────────────────── */
+@layer components {
+  /* Nav uppercase tracking */
+  .nav-label {
+    @apply uppercase text-xs font-sans font-medium;
+    letter-spacing: 0.12em;
+  }
+
+  /* Decorative serif italic */
+  .serif-italic {
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  /* Section heading style */
+  .section-title {
+    @apply font-serif text-display text-charcoal leading-tight;
+  }
+
+  /* Section subtitle style */
+  .section-subtitle {
+    @apply font-sans text-taupe text-sm uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  /* Gold divider line */
+  .divider-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  }
+
+  /* Product card hover image zoom */
+  .product-img-wrapper {
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+  .product-img-wrapper img {
+    transition: transform 0.5s ease;
+  }
+  .product-img-wrapper:hover img {
+    transform: scale(1.06);
+  }
+
+  /* Badge/ribbon base */
+  .ribbon {
+    @apply text-xs font-sans font-medium px-2.5 py-0.5 rounded-full;
+    letter-spacing: 0.05em;
+  }
+
+  /* Cart drawer overlay */
+  .cart-overlay {
+    @apply fixed inset-0 bg-charcoal/40 backdrop-blur-sm z-40;
+  }
+
+  /* Announcement bar */
+  .announcement-bar {
+    height: var(--announcement-height);
+  }
+
+  /* Sticky header offset */
+  .header-offset {
+    padding-top: calc(var(--announcement-height) + var(--header-height));
+  }
+
+  /* Price display */
+  .price-current {
+    @apply font-sans font-semibold text-charcoal text-lg;
+  }
+  .price-mrp {
+    @apply font-sans text-taupe line-through text-sm;
+  }
+  .price-discount {
+    @apply font-sans font-medium text-rust text-sm;
+  }
+
+  /* Input field */
+  .input-field {
+    @apply w-full px-4 py-3 bg-white border border-secondary-deep rounded-brand text-charcoal placeholder-taupe text-sm;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+  }
+  .input-field:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(155, 122, 147, 0.15);
+  }
+
+  /* Btn base */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium rounded-brand transition-all duration-200 cursor-pointer;
+    letter-spacing: 0.03em;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply btn bg-gradient-primary text-white px-6 py-3 text-sm;
+    box-shadow: 0 4px 14px rgba(140, 91, 110, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  }
+  .btn-primary:hover {
+    @apply bg-primary-dark;
+    transform: translateY(-1.5px);
+    box-shadow: 0 6px 22px rgba(140, 91, 110, 0.45), 0 0 10px rgba(199, 169, 107, 0.25);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    @apply btn bg-secondary text-charcoal px-6 py-3 text-sm border border-secondary-deep;
+  }
+  .btn-secondary:hover {
+    @apply bg-secondary-deep;
+  }
+
+  /* Ghost button */
+  .btn-ghost {
+    @apply btn bg-transparent text-charcoal px-6 py-3 text-sm border border-charcoal/20;
+  }
+  .btn-ghost:hover {
+    @apply border-primary text-primary;
+  }
+
+  /* Outline primary */
+  .btn-outline {
+    @apply btn bg-transparent text-primary px-6 py-3 text-sm border border-primary;
+  }
+  .btn-outline:hover {
+    @apply bg-primary text-white;
+  }
+
+  /* Admin sidebar item */
+  .admin-nav-item {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-brand text-sm font-sans text-taupe transition-all duration-200;
+  }
+  .admin-nav-item:hover {
+    @apply bg-secondary text-charcoal;
+  }
+  .admin-nav-item.active {
+    @apply bg-primary/10 text-primary font-medium;
+  }
+
+  /* Table row */
+  .table-row-hover {
+    @apply transition-colors duration-150;
+  }
+  .table-row-hover:hover {
+    @apply bg-cream-alt;
+  }
+}
+
+/* ─── Utilities ───────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Embla carousel */
+  .embla {
+    overflow: hidden;
+  }
+  .embla__container {
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+  }
+  .embla__slide {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  /* Image aspect ratios for product cards */
+  .aspect-product {
+    aspect-ratio: 3 / 4;
+  }
+  .aspect-hero {
+    aspect-ratio: 16 / 9;
+  }
+  .aspect-lookbook {
+    aspect-ratio: 4 / 5;
+  }
+
+  /* Gradient overlays */
+  .gradient-bottom {
+    background: linear-gradient(to top, rgba(58,46,55,0.7) 0%, transparent 60%);
+  }
+  .gradient-overlay {
+    background: linear-gradient(135deg, rgba(155,122,147,0.15) 0%, rgba(243,217,206,0.1) 100%);
+  }
+}
+  /* Luminous accent glow properties */
+  .glow-primary {
+    box-shadow: 0 0 15px rgba(140, 91, 110, 0.25);
+  }
+  .glow-gold {
+    box-shadow: 0 0 18px rgba(199, 169, 107, 0.35);
+  }
+  .glow-text-primary {
+    text-shadow: 0 0 8px rgba(140, 91, 110, 0.15);
+  }
+  .glow-text-gold {
+    text-shadow: 0 0 12px rgba(199, 169, 107, 0.35);
+  }
+  .glow-border {
+    box-shadow: 0 0 8px rgba(140, 91, 110, 0.1);
+    border-color: rgba(140, 91, 110, 0.3);
+  }
