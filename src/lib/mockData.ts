@@ -3751,15 +3751,6 @@ export const testimonials = [
 
 export const heroBanners = [
   {
-    id: 1,
-    title: 'Festive Lehengas & Royal Grace',
-    subtitle: 'Handcrafted Zardozi, Banarasi Brocades & Heritage Kalidar Couture.',
-    cta_text: 'Explore Lehengas',
-    cta_link: '/collections/lehengas',
-    image: '/hero-slide-sankranti.png',
-    accent: 'Royal Heritage',
-  },
-  {
     id: 2,
     title: 'Diwali Festive Sale',
     subtitle: 'Celebrate in grandeur with up to 50% off handloom couture.',
@@ -3778,6 +3769,15 @@ export const heroBanners = [
     accent: 'Gen-Z Edit',
   },
   {
+    id: 1,
+    title: 'Festive Lehengas & Royal Grace',
+    subtitle: 'Handcrafted Zardozi, Banarasi Brocades & Heritage Kalidar Couture.',
+    cta_text: 'Explore Lehengas',
+    cta_link: '/collections/lehengas',
+    image: '/hero-slide-sankranti.png',
+    accent: 'Royal Heritage',
+  },
+  {
     id: 4,
     title: 'Everyday Linen & Handloom Kurtis',
     subtitle: 'Breathable Chanderi, Chikankari & Block-Printed daily elegance.',
@@ -3788,12 +3788,12 @@ export const heroBanners = [
   },
   {
     id: 5,
-    title: 'Collection One / Spring \'24',
+    title: "Collection One / Spring '24",
     subtitle: 'Fresh spring styles, pastel tones, and contemporary cuts.',
-    cta_text: 'Shop Spring \'24',
+    cta_text: "Shop Spring '24",
     cta_link: '/collections',
     image: '/hero-slide-spring.png',
-    accent: 'Spring \'24',
+    accent: "Spring '24",
   },
 ];
 
