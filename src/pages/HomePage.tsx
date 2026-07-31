@@ -21,7 +21,15 @@ import { NewsletterSection } from '@/components/common/NewsletterSection';
 // Hero Carousel
 function HeroCarousel() {
   const [banners, setBanners] = useState<any[]>(heroBanners);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000, stopOnInteraction: false })]);
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      duration: 20,        // Lower = faster slide animation (default ~25). 20 gives a snappy-smooth feel.
+      dragFree: false,     // Snap to slides cleanly
+      containScroll: 'trimSnaps', // Prevent overscroll at edges
+    },
+    [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })]
+  );
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
@@ -61,20 +69,27 @@ function HeroCarousel() {
       style={{ aspectRatio: '4096 / 1732' }}
       aria-label="Hero banner"
     >
-      <div className="embla h-full" ref={emblaRef}>
-        <div className="embla__container h-full">
+      <div
+        className="embla h-full"
+        ref={emblaRef}
+        style={{ willChange: 'transform' }}  /* GPU-layer hint for smooth compositing */
+      >
+        <div className="embla__container h-full" style={{ backfaceVisibility: 'hidden' }}>
           {banners.map((banner) => (
             <Link
               key={banner.id}
               to={banner.cta_link}
               className="embla__slide relative w-full h-full flex-shrink-0 block bg-[#E8E1DA]"
+              draggable={false}
             >
               <img
                 src={banner.image}
                 alt={banner.title}
-                className="w-full h-full select-none object-cover"
+                className="w-full h-full select-none object-cover pointer-events-none"
+                style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}
                 loading="eager"
                 decoding="async"
+                draggable={false}
               />
             </Link>
           ))}
