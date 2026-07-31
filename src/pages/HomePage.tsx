@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
 import { ArrowRight, ArrowLeft, ChevronRight, Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button, Rating, Divider } from '@/components/ui';
@@ -18,31 +16,30 @@ import {
 import { api } from '@/lib/api';
 import { NewsletterSection } from '@/components/common/NewsletterSection';
 
-// Hero Carousel
+// ─── Hero Carousel — Crossfade (like Sabhyata) ───────────────────────────────
+//
+// Each slide is absolutely positioned and stacked on top of one another.
+// The "active" slide is opacity:1, all others are opacity:0.
+// CSS transition on opacity gives a smooth crossfade — no horizontal movement.
+//
 function HeroCarousel() {
   const [banners, setBanners] = useState<any[]>(heroBanners);
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      duration: 20,        // Lower = faster slide animation (default ~25). 20 gives a snappy-smooth feel.
-      dragFree: false,     // Snap to slides cleanly
-      containScroll: 'trimSnaps', // Prevent overscroll at edges
-    },
-    [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })]
-  );
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const total = banners.length;
 
+  // Load banners from localStorage (cache) or fall back to mockData
   useEffect(() => {
     const saved = localStorage.getItem('meraki_hero_banners');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        // Automatically clear cache if it doesn't contain all 5 current hero banner slides
-        if (parsed.length !== 5) {
+        if (parsed.length === 5) {
+          setBanners(parsed);
+        } else {
           localStorage.setItem('meraki_hero_banners', JSON.stringify(heroBanners));
           setBanners(heroBanners);
-        } else {
-          setBanners(parsed);
         }
       } catch (e) {
         console.error(e);
@@ -52,73 +49,88 @@ function HeroCarousel() {
     }
   }, []);
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
+  // Auto-advance every 3500ms, pause on hover
   useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on('select', onSelect);
-    return () => { emblaApi.off('select', onSelect); };
-  }, [emblaApi, onSelect]);
+    if (paused) return;
+    timerRef.current = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % total);
+    }, 3500);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [paused, total]);
+
+  const goTo = (index: number) => {
+    // Reset timer on manual navigation
+    if (timerRef.current) clearInterval(timerRef.current);
+    setCurrent((index + total) % total);
+  };
 
   return (
-    <section 
-      className="relative w-full overflow-hidden bg-[#E8E1DA]" 
+    <section
+      className="relative w-full overflow-hidden bg-[#E8E1DA]"
       style={{ aspectRatio: '4096 / 1732' }}
       aria-label="Hero banner"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
     >
-      <div
-        className="embla h-full"
-        ref={emblaRef}
-        style={{ willChange: 'transform' }}  /* GPU-layer hint for smooth compositing */
-      >
-        <div className="embla__container h-full" style={{ backfaceVisibility: 'hidden' }}>
-          {banners.map((banner) => (
-            <Link
-              key={banner.id}
-              to={banner.cta_link}
-              className="embla__slide relative w-full h-full flex-shrink-0 block bg-[#E8E1DA]"
-              draggable={false}
-            >
-              <img
-                src={banner.image}
-                alt={banner.title}
-                className="w-full h-full select-none object-cover pointer-events-none"
-                style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}
-                loading="eager"
-                decoding="async"
-                draggable={false}
-              />
-            </Link>
-          ))}
-        </div>
-      </div>
+      {/* ── Crossfade image stack ── */}
+      {banners.map((banner, i) => (
+        <Link
+          key={banner.id}
+          to={banner.cta_link}
+          className="absolute inset-0 block"
+          tabIndex={i === current ? 0 : -1}
+          aria-hidden={i !== current}
+          style={{
+            // Crossfade: only the active slide is visible
+            opacity: i === current ? 1 : 0,
+            // 800ms ease-in-out — premium soft crossfade like Sabhyata
+            transition: 'opacity 800ms ease-in-out',
+            // GPU-accelerate the fade for smooth compositing
+            willChange: i === current ? 'opacity' : 'auto',
+            zIndex: i === current ? 1 : 0,
+          }}
+        >
+          <img
+            src={banner.image}
+            alt={banner.title}
+            className="w-full h-full object-cover select-none"
+            style={{ backfaceVisibility: 'hidden' }}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            draggable={false}
+          />
+        </Link>
+      ))}
 
-      {/* Prev/Next */}
+      {/* ── Prev button ── */}
       <button
-        onClick={() => emblaApi?.scrollPrev()}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+        onClick={() => goTo(current - 1)}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/40 transition-colors"
         aria-label="Previous slide"
       >
         <ArrowLeft size={18} />
       </button>
+
+      {/* ── Next button ── */}
       <button
-        onClick={() => emblaApi?.scrollNext()}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+        onClick={() => goTo(current + 1)}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/40 transition-colors"
         aria-label="Next slide"
       >
         <ArrowRight size={18} />
       </button>
 
-      {/* Dots */}
+      {/* ── Dot indicators ── */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-10">
         {banners.map((_, i) => (
           <button
             key={i}
-            onClick={() => emblaApi?.scrollTo(i)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${i === selectedIndex ? 'bg-primary w-4' : 'bg-white/60 hover:bg-white'}`}
+            onClick={() => goTo(i)}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              i === current ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80 w-2'
+            }`}
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}
