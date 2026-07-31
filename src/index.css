@@ -328,3 +328,68 @@
     box-shadow: 0 0 8px rgba(140, 91, 110, 0.1);
     border-color: rgba(140, 91, 110, 0.3);
   }
+
+/* ─── Staggered Scroll-Reveal Animation ──────────────────────────────────────
+ *
+ * Usage:
+ *   1. Add class `scroll-reveal-card` to each card that should animate in.
+ *   2. Add inline style `--index: N` (0-based) to each card for stagger delay.
+ *   3. When the container enters the viewport, add class `revealed` to each card.
+ *
+ * The stagger delay = var(--index) × 120ms, capped by 9 items by default.
+ * Cards start invisible (opacity:0, translateY:30px) and animate to visible.
+ * No layout shift — space is always reserved via opacity (not display:none).
+ *
+ * Respects prefers-reduced-motion: animation is skipped for accessibility.
+ * ───────────────────────────────────────────────────────────────────────────── */
+
+.scroll-reveal-card {
+  /* Initial hidden state — space is reserved, only invisible */
+  opacity: 0;
+  transform: translateY(30px);
+
+  /* Smooth transition: 550ms ease-out for a natural, premium feel */
+  transition:
+    opacity 550ms ease-out,
+    transform 550ms ease-out;
+
+  /* Reserve GPU layer during animation for smooth compositing */
+  will-change: transform, opacity;
+}
+
+/* When a card is revealed (class added by JS after IntersectionObserver fires) */
+.scroll-reveal-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+
+  /* Stagger delay: each card delays by (--index × 120ms) */
+  transition-delay: calc(var(--index, 0) * 120ms);
+
+  /* Cleanup: remove will-change after animation to free GPU memory */
+  will-change: auto;
+}
+
+/* Mobile: snappier feel — reduce distance and duration slightly */
+@media (max-width: 640px) {
+  .scroll-reveal-card {
+    transform: translateY(18px);
+    transition-duration: 400ms;
+  }
+
+  .scroll-reveal-card.revealed {
+    /* Slightly tighter stagger on mobile so all cards appear before user scrolls past */
+    transition-delay: calc(var(--index, 0) * 80ms);
+  }
+}
+
+/* Accessibility: instantly show all cards for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-card,
+  .scroll-reveal-card.revealed {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    transition-delay: 0ms;
+    will-change: auto;
+  }
+}

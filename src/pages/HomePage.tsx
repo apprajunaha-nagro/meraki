@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
@@ -112,9 +112,55 @@ function HeroCarousel() {
   );
 }
 
-// Category Grid
+// ─── Category Grid with Staggered Scroll-Reveal Animation ────────────────────
 
 function CategoryGrid({ categoriesList }: { categoriesList: typeof categories }) {
+  // Refs for each row of cards — IntersectionObserver watches these containers
+  const primaryRowRef = useRef<HTMLDivElement>(null);
+  const secondaryRowRef = useRef<HTMLDivElement>(null);
+
+  // Track which rows have been revealed (one-time trigger per session)
+  const [primaryRevealed, setPrimaryRevealed] = useState(false);
+  const [secondaryRevealed, setSecondaryRevealed] = useState(false);
+
+  useEffect(() => {
+    // Respect user's motion preference — skip animation entirely
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      setPrimaryRevealed(true);
+      setSecondaryRevealed(true);
+      return;
+    }
+
+    /**
+     * Observe a row container. When 20% of it enters the viewport,
+     * mark it as revealed and disconnect (so it never re-triggers).
+     */
+    const makeObserver = (setter: (v: boolean) => void) =>
+      new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setter(true);
+          }
+        },
+        { threshold: 0.2 } // 20% visibility before firing
+      );
+
+    const primaryObs = makeObserver(setPrimaryRevealed);
+    const secondaryObs = makeObserver(setSecondaryRevealed);
+
+    if (primaryRowRef.current) primaryObs.observe(primaryRowRef.current);
+    if (secondaryRowRef.current) secondaryObs.observe(secondaryRowRef.current);
+
+    return () => {
+      primaryObs.disconnect();
+      secondaryObs.disconnect();
+    };
+  }, []);
+
+  const primaryCats = categoriesList.slice(0, 5);
+  const secondaryCats = categoriesList.slice(5);
+
   return (
     <section className="max-w-[1600px] mx-auto px-4 md:px-10 lg:px-16 pt-10 pb-20" aria-labelledby="categories-heading">
       <div className="text-center mb-10">
@@ -122,10 +168,25 @@ function CategoryGrid({ categoriesList }: { categoriesList: typeof categories })
         <h2 id="categories-heading" className="section-title">Shop by Category</h2>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-        {categoriesList.slice(0, 5).map((cat) => (
-          <Link key={cat.slug} to={`/collections/${cat.slug}`} className="group" aria-label={`Shop ${cat.name}`}>
-            <div className="relative overflow-hidden rounded-brand aspect-[3/4.3] transition-all duration-300 group-hover:shadow-[0_12px_28px_rgba(140,91,110,0.22),_0_4px_12px_rgba(199,169,107,0.16)] group-hover:translate-y-[-2px]">
+      {/* ── Primary row: 5 portrait cards with staggered reveal ── */}
+      <div
+        ref={primaryRowRef}
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6"
+      >
+        {primaryCats.map((cat, index) => (
+          <Link
+            key={cat.slug}
+            to={`/collections/${cat.slug}`}
+            className="group"
+            aria-label={`Shop ${cat.name}`}
+            // scroll-reveal-card: starts hidden (opacity:0, translateY:30px)
+            // When `primaryRevealed` is true, .revealed class is added and
+            // the card animates in with delay = index × 120ms (see index.css)
+            style={{ '--index': index } as React.CSSProperties}
+          >
+            <div
+              className={`scroll-reveal-card${primaryRevealed ? ' revealed' : ''} relative overflow-hidden rounded-brand aspect-[3/4.3] transition-all duration-300 group-hover:shadow-[0_12px_28px_rgba(140,91,110,0.22),_0_4px_12px_rgba(199,169,107,0.16)] group-hover:translate-y-[-2px]`}
+            >
               <img
                 src={cat.image || 'https://images.unsplash.com/photo-1610189844589-3c3e58a04ba1?w=600&q=80'}
                 alt={cat.name}
@@ -142,25 +203,40 @@ function CategoryGrid({ categoriesList }: { categoriesList: typeof categories })
         ))}
       </div>
 
-      {/* Secondary row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-6">
-        {categoriesList.slice(5).map((cat) => (
-          <Link key={cat.slug} to={`/collections/${cat.slug}`} className="group" aria-label={`Shop ${cat.name}`}>
-            <div className="relative overflow-hidden rounded-brand aspect-[4/3] transition-all duration-300 group-hover:shadow-[0_12px_28px_rgba(140,91,110,0.22),_0_4px_12px_rgba(199,169,107,0.16)] group-hover:translate-y-[-2px]">
-              <img
-                src={cat.image || 'https://images.unsplash.com/photo-1610189844589-3c3e58a04ba1?w=600&q=80'}
-                alt={cat.name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-3">
-                <p className="text-white font-serif text-base">{cat.name}</p>
+      {/* ── Secondary row: landscape cards with staggered reveal ── */}
+      {secondaryCats.length > 0 && (
+        <div
+          ref={secondaryRowRef}
+          className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-6"
+        >
+          {secondaryCats.map((cat, index) => (
+            <Link
+              key={cat.slug}
+              to={`/collections/${cat.slug}`}
+              className="group"
+              aria-label={`Shop ${cat.name}`}
+              // Continue stagger index after primary row (primaryCats.length + index)
+              // so the reveal feels sequential across both rows
+              style={{ '--index': primaryCats.length + index } as React.CSSProperties}
+            >
+              <div
+                className={`scroll-reveal-card${secondaryRevealed ? ' revealed' : ''} relative overflow-hidden rounded-brand aspect-[4/3] transition-all duration-300 group-hover:shadow-[0_12px_28px_rgba(140,91,110,0.22),_0_4px_12px_rgba(199,169,107,0.16)] group-hover:translate-y-[-2px]`}
+              >
+                <img
+                  src={cat.image || 'https://images.unsplash.com/photo-1610189844589-3c3e58a04ba1?w=600&q=80'}
+                  alt={cat.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-3">
+                  <p className="text-white font-serif text-base">{cat.name}</p>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
 
       <div className="text-center mt-8">
         <Link to="/collections">
