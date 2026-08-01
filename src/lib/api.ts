@@ -511,4 +511,51 @@ export const api = {
       return apiRequest<ApiResponse<any>>('PUT', '/admin/settings', data, { success: true });
     },
   },
+
+  // ─── Theme Settings ───────────────────────────────────────────────────────
+  theme: {
+    get: () => {
+      const defaultTheme = {
+        primary: '#8C5B6E',
+        secondary: '#F4D9CE',
+        background: '#FAF6F0',
+        textHeadings: '#3E2A32',
+        textBody: '#75626A',
+        button: '#8C5B6E',
+        buttonHover: '#6F4455',
+      };
+      const themeDb = getDb('meraki_theme_settings', defaultTheme);
+      return apiRequest<ApiResponse<any>>('GET', '/theme', null, { theme: themeDb });
+    },
+    
+    update: (data: any) => {
+      const defaultTheme = {
+        primary: '#8C5B6E',
+        secondary: '#F4D9CE',
+        background: '#FAF6F0',
+        textHeadings: '#3E2A32',
+        textBody: '#75626A',
+        button: '#8C5B6E',
+        buttonHover: '#6F4455',
+      };
+      const themeDb = getDb('meraki_theme_settings', defaultTheme);
+      const updated = { ...themeDb, ...data };
+      saveDb('meraki_theme_settings', updated);
+      return apiRequest<ApiResponse<any>>('POST', '/theme', data, { success: true, theme: updated });
+    },
+
+    reset: () => {
+      const defaultTheme = {
+        primary: '#8C5B6E',
+        secondary: '#F4D9CE',
+        background: '#FAF6F0',
+        textHeadings: '#3E2A32',
+        textBody: '#75626A',
+        button: '#8C5B6E',
+        buttonHover: '#6F4455',
+      };
+      saveDb('meraki_theme_settings', defaultTheme);
+      return apiRequest<ApiResponse<any>>('POST', '/theme/reset', null, { success: true, theme: defaultTheme });
+    }
+  },
 };

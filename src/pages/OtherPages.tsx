@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowRight, MessageCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowRight, MessageCircle, Mail, Phone, MapPin, Sparkles, Maximize2, X } from 'lucide-react';
 import { Button, Input, Textarea, Accordion, Breadcrumb, Divider } from '@/components/ui';
 import { ProductCard } from '@/components/product/ProductCard';
 import { products, categories, curatedEdits, blogPosts, faqItems } from '@/lib/mockData';
@@ -333,36 +333,310 @@ export function CraftsmanshipPage() {
 
 // ─── Lookbook Page ────────────────────────────────────────────────────────────
 
+interface LookbookItem {
+  id: number;
+  title: string;
+  category: 'festive' | 'linen' | 'velvet' | 'fusion';
+  campaign: string;
+  description: string;
+  image: string;
+  productSlug?: string;
+  productName?: string;
+  price?: number;
+}
+
+const lookbookData: LookbookItem[] = [
+  {
+    id: 1,
+    title: "Sovereign Crimson Heritage",
+    category: "velvet",
+    campaign: "Royal Zardozi 2026",
+    description: "Deep maroon velvet lehenga detailed with handcrafted Zardozi wire needlework and kalidar flare.",
+    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=1200&q=90",
+    productSlug: "mehrunissa-royal-velvet-bridal-lehenga",
+    productName: "Mehrunissa Royal Velvet Bridal Lehenga",
+    price: 24999
+  },
+  {
+    id: 2,
+    title: "Minimalist Indigo Linen",
+    category: "linen",
+    campaign: "Earth & Handloom 2026",
+    description: "Breezy hand-tied Shibori pattern co-ord set in 100% pure organic cotton mulmul.",
+    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=90",
+    productSlug: "vaidehi-royal-blue-linen-coord-set",
+    productName: "Vaidehi Royal Blue Linen Co-ord Set",
+    price: 2950
+  },
+  {
+    id: 3,
+    title: "Champagne Silk Elegance",
+    category: "festive",
+    campaign: "Festive Soirée",
+    description: "Handloom Chanderi silk shirt-style co-ord adorned with multi-color floral needlework.",
+    image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=1200&q=90",
+    productSlug: "kaveri-embroidered-silk-shirt-coord-set",
+    productName: "Kaveri Embroidered Silk Shirt Co-ord Set",
+    price: 4600
+  },
+  {
+    id: 4,
+    title: "Terracotta Earth Tones",
+    category: "linen",
+    campaign: "Everyday Soul",
+    description: "Inspired by the warm clay soils of Jharkhand — pure breathable handloom linen drape.",
+    image: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=1200&q=90",
+    productSlug: "meera-maroon-embroidered-beige-linen-coord-set",
+    productName: "Meera Maroon Embroidered Beige Linen Co-ord Set",
+    price: 3400
+  },
+  {
+    id: 5,
+    title: "Sage Botanical Whisper",
+    category: "fusion",
+    campaign: "Modern Fusion 2026",
+    description: "Soft sage green silk shirt tunic decorated with delicate hand-printed leaf motifs.",
+    image: "https://images.unsplash.com/photo-1544441893-675973e31985?w=1200&q=90",
+    productSlug: "maitreyi-olive-leaf-print-silk-shirt-coord-set",
+    productName: "Maitreyi Olive Leaf Print Silk Shirt Co-ord Set",
+    price: 3850
+  },
+  {
+    id: 6,
+    title: "Royal Obsidian Tailoring",
+    category: "fusion",
+    campaign: "Atelier Couture",
+    description: "Chic obsidian black lapel shirt co-ord set with relaxed wide-leg trousers.",
+    image: "https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?w=1200&q=90",
+    productSlug: "rhea-paisley-cape-palazzo-3-piece-coord-set",
+    productName: "Rhea Paisley Cape & Palazzo 3-Piece Co-ord Set",
+    price: 4200
+  },
+  {
+    id: 7,
+    title: "Gaji Silk Bandhani Heritage",
+    category: "festive",
+    campaign: "Royal Zardozi 2026",
+    description: "Royal crimson hues embellished with authentic hand-tied Bandhani patterns.",
+    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1200&q=90",
+    productSlug: "noor-bandhani-rani-pink-lehenga",
+    productName: "Noor Bandhani Rani Pink Lehenga",
+    price: 14999
+  },
+  {
+    id: 8,
+    title: "Plum Velvet Opulence",
+    category: "velvet",
+    campaign: "Atelier Couture",
+    description: "Luxurious silk velvet co-ord set with hand-embroidered metallic threadwork.",
+    image: "https://images.unsplash.com/photo-1609357605129-26f69add5d6e?w=1200&q=90",
+    productSlug: "vartika-abstract-pastel-marble-print-silk-coord-set",
+    productName: "Vartika Pastel Marble Print Silk Co-ord Set",
+    price: 4400
+  },
+  {
+    id: 9,
+    title: "Marigold Ikat Celebration",
+    category: "linen",
+    campaign: "Earth & Handloom 2026",
+    description: "Joyful marigold yellow double-breasted jacket co-ord set with wooden button accents.",
+    image: "https://images.unsplash.com/photo-1596783074918-c84cb06a95f5?w=1200&q=90",
+    productSlug: "padmini-yellow-double-breasted-jacket-coord-set",
+    productName: "Padmini Yellow Double-Breasted Jacket Co-ord Set",
+    price: 3200
+  }
+];
+
 export function LookbookPage() {
-  const images = [
-    'https://images.unsplash.com/photo-1583391733956-6c78276477e5?w=800&q=80',
-    'https://images.unsplash.com/photo-1594938298603-c8148c4b4871?w=800&q=80',
-    'https://images.unsplash.com/photo-1610189844589-3c3e58a04ba1?w=800&q=80',
-    'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=800&q=80',
-    'https://images.unsplash.com/photo-1572804013427-4d7ca7268217?w=800&q=80',
-    'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80',
-  ];
+  const [activeTab, setActiveTab] = useState<'all' | 'festive' | 'linen' | 'velvet' | 'fusion'>('all');
+  const [selectedItem, setSelectedItem] = useState<LookbookItem | null>(null);
+
+  const filteredItems = activeTab === 'all' 
+    ? lookbookData 
+    : lookbookData.filter((item) => item.category === activeTab);
+
   return (
-    <div className="header-offset pb-16">
-      <div className="py-14 text-center">
-        <p className="section-subtitle mb-3">Campaign 2025</p>
-        <h1 className="font-serif text-5xl text-charcoal mb-4">The Lookbook</h1>
-        <p className="text-taupe max-w-md mx-auto">Soulful editorials that tell the story of Meraki — made with love, worn with ease</p>
+    <div className="header-offset pb-20 bg-warm-cream/30">
+      {/* Hero Header */}
+      <div className="bg-gradient-to-b from-blush-peach/30 via-warm-cream to-transparent py-16 px-4 text-center">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium uppercase tracking-widest mb-4">
+          <Sparkles size={13} /> Seasonal Editorial 2026
+        </span>
+        <h1 className="font-serif text-5xl lg:text-6xl text-charcoal mb-4 tracking-tight">
+          The Editorial Lookbook
+        </h1>
+        <p className="text-taupe text-base lg:text-lg max-w-2xl mx-auto font-sans leading-relaxed">
+          Soulful stories of craftsmanship — handcrafted with traditional Indian motifs, natural handloom drapes, and modern ease in Dhanbad, Jharkhand.
+        </p>
+
+        {/* Filter Navigation */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+          {[
+            { id: 'all', label: 'All Editorials' },
+            { id: 'festive', label: 'Festive Heritage' },
+            { id: 'linen', label: 'Earth & Handloom' },
+            { id: 'velvet', label: 'Royal Velvet' },
+            { id: 'fusion', label: 'Modern Fusion' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`px-5 py-2 text-xs uppercase tracking-wider rounded-full transition-all duration-300 ${
+                activeTab === tab.id
+                  ? 'bg-charcoal text-white shadow-md'
+                  : 'bg-white text-charcoal/70 border border-secondary-deep hover:border-primary hover:text-primary'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 lg:px-6">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {images.map((img, i) => (
-            <div key={i} className={`overflow-hidden rounded-brand group cursor-pointer ${i === 0 ? 'md:row-span-2' : ''}`}>
-              <img
-                src={img}
-                alt={`Meraki by Kritika lookbook image ${i + 1}`}
-                className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${i === 0 ? 'h-full min-h-[400px]' : 'aspect-[4/5]'}`}
-                loading="lazy"
-              />
+
+      {/* Editorial Grid */}
+      <div className="max-w-7xl mx-auto px-4 lg:px-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredItems.map((item) => (
+            <div
+              key={item.id}
+              className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-secondary/50 flex flex-col"
+            >
+              {/* Image Container with Zoom Trigger */}
+              <div 
+                className="relative aspect-[3/4] overflow-hidden cursor-pointer"
+                onClick={() => setSelectedItem(item)}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
+                  <span className="text-xs uppercase tracking-widest text-gold mb-1 font-mono">
+                    {item.campaign}
+                  </span>
+                  <h3 className="font-serif text-2xl font-medium mb-2">{item.title}</h3>
+                  <div className="flex items-center text-xs text-white/90 gap-1 mt-1">
+                    <Maximize2 size={14} /> Click to expand editorial view
+                  </div>
+                </div>
+                <span className="absolute top-4 left-4 bg-charcoal/80 text-white backdrop-blur-md text-[10px] uppercase tracking-widest px-3 py-1 rounded-full font-mono">
+                  {item.campaign}
+                </span>
+              </div>
+
+              {/* Editorial Card Content */}
+              <div className="p-6 flex-1 flex flex-col justify-between bg-white">
+                <div>
+                  <h2 className="font-serif text-xl text-charcoal mb-2 group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h2>
+                  <p className="text-taupe text-sm leading-relaxed mb-4">
+                    {item.description}
+                  </p>
+                </div>
+
+                {item.productSlug && (
+                  <div className="pt-4 border-t border-secondary flex items-center justify-between mt-auto">
+                    <div>
+                      <p className="text-xs text-taupe font-medium">{item.productName}</p>
+                      {item.price && (
+                        <p className="font-serif font-semibold text-charcoal text-sm">₹{item.price.toLocaleString('en-IN')}</p>
+                      )}
+                    </div>
+                    <Link
+                      to={`/product/${item.productSlug}`}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary-dark transition-colors uppercase tracking-wider group/link"
+                    >
+                      Shop Look <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Designer Statement Quote Box */}
+      <div className="max-w-4xl mx-auto px-4 mt-20">
+        <div className="bg-white rounded-2xl p-8 lg:p-12 border border-secondary shadow-soft text-center relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-primary to-gold"></div>
+          <p className="section-subtitle mb-3">Behind The Atelier</p>
+          <blockquote className="font-serif text-2xl lg:text-3xl text-charcoal italic leading-relaxed mb-6">
+            “At Meraki, we design for the modern Indian woman who cherishes her roots while embracing effortless comfort. Every drape is made with soul.”
+          </blockquote>
+          <div className="flex items-center justify-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-serif text-primary font-bold text-base">
+              KS
+            </div>
+            <div className="text-left">
+              <p className="font-serif font-semibold text-charcoal text-sm">Kritika Sharma</p>
+              <p className="text-xs text-taupe">Founder & Creative Director — Dhanbad</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Fullscreen Lightbox Modal */}
+      {selectedItem && (
+        <div 
+          className="fixed inset-0 z-50 bg-charcoal/90 backdrop-blur-md flex items-center justify-center p-4 lg:p-10 animate-fade-in"
+          onClick={() => setSelectedItem(null)}
+        >
+          <div 
+            className="relative bg-white rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedItem(null)}
+              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-charcoal/60 text-white flex items-center justify-center hover:bg-charcoal transition-colors"
+            >
+              <X size={18} />
+            </button>
+            
+            <div className="md:w-1/2 bg-charcoal aspect-[3/4] md:aspect-auto">
+              <img
+                src={selectedItem.image}
+                alt={selectedItem.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="md:w-1/2 p-8 flex flex-col justify-between bg-white overflow-y-auto">
+              <div>
+                <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs uppercase tracking-widest font-mono mb-3">
+                  {selectedItem.campaign}
+                </span>
+                <h3 className="font-serif text-3xl text-charcoal mb-3">{selectedItem.title}</h3>
+                <p className="text-taupe text-base leading-relaxed mb-6">
+                  {selectedItem.description}
+                </p>
+              </div>
+
+              {selectedItem.productSlug && (
+                <div className="p-5 bg-warm-cream/50 rounded-xl border border-secondary">
+                  <p className="text-xs text-taupe uppercase tracking-wider mb-1 font-mono">Featured Ensemble</p>
+                  <h4 className="font-serif text-lg text-charcoal font-semibold mb-1">{selectedItem.productName}</h4>
+                  {selectedItem.price && (
+                    <p className="text-primary font-serif font-bold text-xl mb-4">
+                      ₹{selectedItem.price.toLocaleString('en-IN')}
+                    </p>
+                  )}
+                  <Link
+                    to={`/product/${selectedItem.productSlug}`}
+                    onClick={() => setSelectedItem(null)}
+                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-primary text-white font-medium hover:bg-primary-dark transition-colors shadow-soft"
+                  >
+                    View Product Details <ArrowRight size={16} />
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

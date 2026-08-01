@@ -1,10 +1,11 @@
+import { useTheme, DEFAULT_THEME, isValidHex, type ThemeSettings } from '@/context/ThemeContext';
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Package, Tag, ShoppingCart, Users, Percent,
   Star, Megaphone, Gift, BarChart2, Settings, LogOut, Bell,
   ChevronLeft, ChevronRight, Menu, X, TrendingUp, TrendingDown,
-  AlertTriangle, ChevronDown,
+  AlertTriangle, ChevronDown, Palette, RotateCcw, Save, Eye,
 } from 'lucide-react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -54,6 +55,7 @@ const adminNavItems = [
   { href: '/admin/categories', label: 'Categories', icon: <Tag size={18} /> },
   { href: '/admin/orders', label: 'Orders', icon: <ShoppingCart size={18} /> },
   { href: '/admin/customers', label: 'Customers', icon: <Users size={18} /> },
+  { href: '/admin/theme', label: 'Theme Settings', icon: <Palette size={18} /> },
   { href: '/admin/coupons', label: 'Coupons', icon: <Percent size={18} /> },
   { href: '/admin/reviews', label: 'Reviews', icon: <Star size={18} /> },
   { href: '/admin/marketing', label: 'Marketing', icon: <Megaphone size={18} /> },
@@ -1932,6 +1934,303 @@ export function AdminCategoriesPage() {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+
+// ─── Admin Theme Settings Page ────────────────────────────────────────────────
+
+export function AdminThemeSettingsPage() {
+  const { theme, updateTheme, resetTheme, previewTheme } = useTheme();
+  
+  const [draft, setDraft] = useState<ThemeSettings>(theme);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSaving, setIsSaving] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+
+  useEffect(() => {
+    setDraft(theme);
+  }, [theme]);
+
+  const handleColorChange = (key: keyof ThemeSettings, value: string) => {
+    const uppercaseVal = value.startsWith('#') ? value : `#${value}`;
+    const updated = { ...draft, [key]: uppercaseVal };
+    setDraft(updated);
+
+    if (!isValidHex(uppercaseVal)) {
+      setErrors((prev) => ({ ...prev, [key]: 'Invalid hex code (e.g. #8C5B6E or #ABC)' }));
+    } else {
+      setErrors((prev) => {
+        const copy = { ...prev };
+        delete copy[key];
+        return copy;
+      });
+      previewTheme(updated);
+    }
+  };
+
+  const hasErrors = Object.keys(errors).length > 0;
+
+  const handleSave = async () => {
+    if (hasErrors) {
+      toast.error('Please fix invalid hex color codes before saving.');
+      return;
+    }
+    setIsSaving(true);
+    try {
+      await updateTheme(draft);
+      toast.success('Theme settings saved and applied globally across the website! ✨');
+    } catch (err) {
+      toast.error('Failed to save theme settings.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleReset = async () => {
+    if (confirm('Are you sure you want to reset all colors back to the original Meraki brand palette?')) {
+      setIsResetting(true);
+      try {
+        await resetTheme();
+        setDraft(DEFAULT_THEME);
+        setErrors({});
+        toast.success('Theme restored to original Meraki brand palette.');
+      } catch (err) {
+        toast.error('Failed to reset theme.');
+      } finally {
+        setIsResetting(false);
+      }
+    }
+  };
+
+  const colorFields: { key: keyof ThemeSettings; label: string; description: string; defaultHex: string }[] = [
+    { key: 'primary', label: 'Primary Color', description: 'Main brand color for badges, links, active states & accents', defaultHex: DEFAULT_THEME.primary },
+    { key: 'secondary', label: 'Secondary / Accent Color', description: 'Soft contrast tint used for borders, subtle highlights & banners', defaultHex: DEFAULT_THEME.secondary },
+    { key: 'background', label: 'Background Color', description: 'Global page background tone (Warm Cream default)', defaultHex: DEFAULT_THEME.background },
+    { key: 'textHeadings', label: 'Text Color (Headings)', description: 'Color applied to all titles, headings & serif typography', defaultHex: DEFAULT_THEME.textHeadings },
+    { key: 'textBody', label: 'Text Color (Body)', description: 'Color for body paragraphs, subtitles & muted secondary text', defaultHex: DEFAULT_THEME.textBody },
+    { key: 'button', label: 'Button Color', description: 'Primary action buttons background fill', defaultHex: DEFAULT_THEME.button },
+    { key: 'buttonHover', label: 'Button Hover Color', description: 'Darker tone applied when hovering primary buttons', defaultHex: DEFAULT_THEME.buttonHover },
+  ];
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-secondary shadow-sm">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="p-2 rounded-lg bg-primary/10 text-primary">
+              <Palette size={20} />
+            </span>
+            <h1 className="font-serif text-2xl text-charcoal font-semibold">Theme & Color Settings</h1>
+          </div>
+          <p className="text-taupe text-sm">
+            Customize your storefront's color palette. Changes update dynamically in real-time and persist globally across all pages.
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleReset}
+            disabled={isResetting}
+            className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-taupe hover:text-charcoal bg-secondary/50 hover:bg-secondary rounded-lg border border-secondary-deep transition-all"
+          >
+            <RotateCcw size={14} /> Reset to Default
+          </button>
+          <Button
+            onClick={handleSave}
+            disabled={isSaving || hasErrors}
+            className="flex items-center gap-2 text-xs px-5 py-2"
+          >
+            <Save size={14} /> {isSaving ? 'Saving...' : 'Save Theme'}
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid lg:grid-cols-12 gap-8">
+        {/* Color Form Section */}
+        <div className="lg:col-span-7 bg-white p-6 rounded-xl border border-secondary shadow-sm space-y-6">
+          <div className="border-b border-secondary pb-4">
+            <h2 className="font-serif text-lg text-charcoal font-medium">Color Palette Configurator</h2>
+            <p className="text-xs text-taupe mt-1">Pick colors using the swatch or type exact hex codes (e.g. #8C5B6E).</p>
+          </div>
+
+          <div className="space-y-5">
+            {colorFields.map((field) => {
+              const val = draft[field.key] || '#000000';
+              const isInvalid = !!errors[field.key];
+              return (
+                <div key={field.key} className="p-4 rounded-xl bg-warm-cream/40 border border-secondary/60 hover:border-primary/40 transition-colors">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+                    <div>
+                      <label className="text-sm font-semibold text-charcoal block">{field.label}</label>
+                      <span className="text-xs text-taupe">{field.description}</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-3 flex-shrink-0">
+                      {/* Live color swatch next to field */}
+                      <div
+                        className="w-9 h-9 rounded-lg border border-secondary-deep shadow-inner transition-transform hover:scale-105 flex-shrink-0"
+                        style={{ backgroundColor: isValidHex(val) ? val : '#ffffff' }}
+                        title={`Current Swatch: ${val}`}
+                      />
+
+                      {/* Native Color Picker Input */}
+                      <div className="relative">
+                        <input
+                          type="color"
+                          value={isValidHex(val) ? (val.length === 4 ? `#${val[1]}${val[1]}${val[2]}${val[2]}${val[3]}${val[3]}` : val) : '#8C5B6E'}
+                          onChange={(e) => handleColorChange(field.key, e.target.value.toUpperCase())}
+                          className="w-9 h-9 rounded-lg cursor-pointer border-0 bg-transparent p-0 overflow-hidden"
+                          title="Pick color"
+                        />
+                      </div>
+
+                      {/* Hex Text Input */}
+                      <input
+                        type="text"
+                        value={val}
+                        maxLength={7}
+                        onChange={(e) => handleColorChange(field.key, e.target.value.toUpperCase())}
+                        placeholder="#FFFFFF"
+                        className={`w-28 text-xs font-mono px-3 py-2 rounded-lg border uppercase tracking-wider transition-all ${
+                          isInvalid 
+                            ? 'border-rust text-rust focus:outline-rust bg-rust/5' 
+                            : 'border-secondary-deep focus:border-primary text-charcoal bg-white'
+                        }`}
+                      />
+                    </div>
+                  </div>
+
+                  {isInvalid && (
+                    <p className="text-[11px] text-rust font-medium mt-1">
+                      ⚠️ {errors[field.key]}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Live Preview Panel */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="bg-white p-6 rounded-xl border border-secondary shadow-sm sticky top-20">
+            <div className="flex items-center justify-between border-b border-secondary pb-4 mb-5">
+              <div className="flex items-center gap-2">
+                <Eye size={16} className="text-primary" />
+                <h2 className="font-serif text-lg text-charcoal font-medium">Live Storefront Preview</h2>
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full bg-primary/10 text-primary">
+                Instant Render
+              </span>
+            </div>
+
+            {/* Mini Homepage Banner & Component Mockup */}
+            <div 
+              className="p-5 rounded-xl border shadow-inner transition-all duration-300 space-y-5"
+              style={{
+                backgroundColor: isValidHex(draft.background) ? draft.background : '#FAF6F0',
+                borderColor: isValidHex(draft.secondary) ? draft.secondary : '#F4D9CE',
+              }}
+            >
+              {/* Mock Banner */}
+              <div 
+                className="p-5 rounded-lg text-center space-y-2 transition-colors duration-300"
+                style={{
+                  backgroundColor: isValidHex(draft.secondary) ? draft.secondary : '#F4D9CE',
+                }}
+              >
+                <span 
+                  className="text-[10px] uppercase tracking-widest font-mono font-medium block"
+                  style={{ color: isValidHex(draft.primary) ? draft.primary : '#8C5B6E' }}
+                >
+                  Autumn / Winter 2026 Collection
+                </span>
+                <h3 
+                  className="font-serif text-xl font-bold transition-colors"
+                  style={{ color: isValidHex(draft.textHeadings) ? draft.textHeadings : '#3E2A32' }}
+                >
+                  Meraki by Kritika
+                </h3>
+                <p 
+                  className="text-xs max-w-xs mx-auto leading-relaxed transition-colors"
+                  style={{ color: isValidHex(draft.textBody) ? draft.textBody : '#75626A' }}
+                >
+                  Made with Soul, Worn with Ease. Experience Indian heritage textiles.
+                </p>
+                <div className="pt-2 flex justify-center gap-2">
+                  <button 
+                    className="px-4 py-1.5 rounded-md text-xs font-medium text-white transition-all shadow-sm hover:opacity-90"
+                    style={{
+                      backgroundColor: isValidHex(draft.button) ? draft.button : '#8C5B6E',
+                    }}
+                  >
+                    Shop Now
+                  </button>
+                  <button 
+                    className="px-4 py-1.5 rounded-md text-xs font-medium border transition-all"
+                    style={{
+                      borderColor: isValidHex(draft.primary) ? draft.primary : '#8C5B6E',
+                      color: isValidHex(draft.textHeadings) ? draft.textHeadings : '#3E2A32',
+                    }}
+                  >
+                    Explore Lookbook
+                  </button>
+                </div>
+              </div>
+
+              {/* Mock Product Card */}
+              <div 
+                className="bg-white p-4 rounded-lg border shadow-sm flex items-center gap-3 transition-colors"
+                style={{ borderColor: isValidHex(draft.secondary) ? draft.secondary : '#F4D9CE' }}
+              >
+                <div 
+                  className="w-14 h-16 rounded-md flex items-center justify-center text-xs font-serif font-bold text-white flex-shrink-0"
+                  style={{ backgroundColor: isValidHex(draft.primary) ? draft.primary : '#8C5B6E' }}
+                >
+                  Co-ord
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span 
+                    className="text-[9px] uppercase tracking-wider font-mono block"
+                    style={{ color: isValidHex(draft.primary) ? draft.primary : '#8C5B6E' }}
+                  >
+                    Bestseller
+                  </span>
+                  <h4 
+                    className="font-serif text-sm font-semibold truncate"
+                    style={{ color: isValidHex(draft.textHeadings) ? draft.textHeadings : '#3E2A32' }}
+                  >
+                    Silk Fusion Co-ord Set
+                  </h4>
+                  <p 
+                    className="text-xs font-serif font-bold mt-0.5"
+                    style={{ color: isValidHex(draft.button) ? draft.button : '#8C5B6E' }}
+                  >
+                    ₹3,400
+                  </p>
+                </div>
+                <button 
+                  className="px-3 py-1.5 text-[11px] font-medium text-white rounded-md flex-shrink-0"
+                  style={{ backgroundColor: isValidHex(draft.button) ? draft.button : '#8C5B6E' }}
+                >
+                  + Add
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-4 p-3 rounded-lg bg-warm-cream/70 border border-secondary text-xs text-taupe space-y-1">
+              <p className="font-semibold text-charcoal flex items-center gap-1">
+                💡 Tip for Admins:
+              </p>
+              <p>
+                Clicking <strong>"Save Theme"</strong> updates global CSS variables instantly across all customer-facing storefront pages without rebuilding or re-deploying code.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

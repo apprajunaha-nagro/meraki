@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/context/ThemeContext';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Suspense, lazy, useEffect } from 'react';
@@ -43,6 +44,7 @@ import {
   AdminGiftCardsPage,
   AdminReportsPage,
   AdminSettingsPage,
+  AdminThemeSettingsPage,
 } from '@/pages/admin/AdminPages';
 
 // Auth guard
@@ -135,7 +137,8 @@ import { useState } from 'react';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
       <ScrollToTop />
       <Toaster
         position="top-right"
@@ -167,6 +170,7 @@ export default function App() {
         <Route path="/admin/gift-cards" element={<AdminRoute><AdminGiftCardsPage /></AdminRoute>} />
         <Route path="/admin/reports" element={<AdminRoute><AdminReportsPage /></AdminRoute>} />
         <Route path="/admin/settings" element={<AdminRoute><AdminSettingsPage /></AdminRoute>} />
+        <Route path="/admin/theme" element={<AdminRoute><AdminThemeSettingsPage /></AdminRoute>} />
 
         {/* ── Storefront Routes (with header/footer) ── */}
         <Route path="*" element={
@@ -208,6 +212,7 @@ export default function App() {
           </StorefrontLayout>
         } />
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
