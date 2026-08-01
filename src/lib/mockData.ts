@@ -5,7 +5,7 @@ import type { Review, BlogPost, User, Coupon } from '@/types/index';
 // ─── Categories ─────────────────────────────────────────────────────────────
 
 export const categories: Category[] = [
-  { id: 1, name: 'Co-ord Sets', slug: 'co-ord-sets', parent_id: null, image: '/category-co-ord-sets.jpg', description: 'Matching two/three-piece sets designed with ease', product_count: 32 },
+  { id: 1, name: 'Co-ord Sets', slug: 'co-ord-sets', parent_id: null, image: '/category-co-ord-sets.jpg', description: 'Matching two/three-piece sets designed with ease', product_count: 8 },
   { id: 2, name: 'Maxi Dresses', slug: 'maxi-dresses', parent_id: null, image: '/category-maxi-dresses.jpg', description: 'Flowing full-length dresses made with soul', product_count: 36 },
   { id: 3, name: 'Kurtis', slug: 'kurtis', parent_id: null, image: '/category-kurtis.jpg', description: 'Everyday and festive kurtis for effortless elegance', product_count: 48 },
   { id: 4, name: 'Gen-Z Wear', slug: 'gen-z-wear', parent_id: null, image: '/category-gen-z-wear.jpg', description: 'Trend-led, youthful, contemporary fusion pieces', product_count: 30 },
@@ -13,6 +13,242 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
+  
+  {
+    id: 51,
+    name: "Rhea Paisley Cape & Palazzo 3-Piece Co-ord Set",
+    slug: "rhea-paisley-cape-palazzo-3-piece-coord-set",
+    description: "A sophisticated 3-piece obsidian black fusion co-ord set. Comprises a fitted crop top, wide-leg fluid palazzo trousers, and an airy full-length jacket adorned with traditional paisley patterns and fine zari border trimming.",
+    fabric: "Satin Crepe & Georgette",
+    care_instructions: "Dry clean only.",
+    category_id: 1,
+    category: categories[0],
+    base_price: 4200,
+    mrp: 5400,
+    sku: "MBK-CO-051",
+    status: "active",
+    is_featured: true,
+    is_bestseller: true,
+    is_new_arrival: true,
+    rating: 4.9,
+    review_count: 45,
+    tags: ["3-piece","paisley","festive","black"],
+    created_at: "2026-08-01T10:05:00.000Z",
+    variants: [
+      { id: 511, product_id: 51, size: "S", color: "Obsidian Black", color_hex: "#1A1A1A", sku: "MBK-CO-051-S", stock_qty: 10 },
+      { id: 512, product_id: 51, size: "M", color: "Obsidian Black", color_hex: "#1A1A1A", sku: "MBK-CO-051-M", stock_qty: 16 },
+      { id: 513, product_id: 51, size: "L", color: "Obsidian Black", color_hex: "#1A1A1A", sku: "MBK-CO-051-L", stock_qty: 8 }
+    ],
+    images: [
+      { id: 511, product_id: 51, image_url: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=1000&q=90", sort_order: 0, alt_text: "Rhea Paisley Cape & Palazzo 3-Piece Co-ord Set" }
+    ]
+  },
+  {
+    id: 52,
+    name: "Kaveri Embroidered Silk Shirt Co-ord Set",
+    slug: "kaveri-embroidered-silk-shirt-coord-set",
+    description: "An elegant champagne gold silk shirt-style co-ord set. Highlights intricate multi-color floral embroidery on the cuffs, placket, and trouser hems, combining classic tailoring with royal Indian heritage.",
+    fabric: "Handloom Chanderi Silk",
+    care_instructions: "Dry clean only.",
+    category_id: 1,
+    category: categories[0],
+    base_price: 4600,
+    mrp: 5800,
+    sku: "MBK-CO-052",
+    status: "active",
+    is_featured: true,
+    is_bestseller: false,
+    is_new_arrival: true,
+    rating: 4.7,
+    review_count: 29,
+    tags: ["silk","embroidered","luxury","champagne"],
+    created_at: "2026-08-01T10:10:00.000Z",
+    variants: [
+      { id: 521, product_id: 52, size: "S", color: "Champagne Gold", color_hex: "#F7E7CE", sku: "MBK-CO-052-S", stock_qty: 12 },
+      { id: 522, product_id: 52, size: "M", color: "Champagne Gold", color_hex: "#F7E7CE", sku: "MBK-CO-052-M", stock_qty: 14 },
+      { id: 523, product_id: 52, size: "L", color: "Champagne Gold", color_hex: "#F7E7CE", sku: "MBK-CO-052-L", stock_qty: 9 }
+    ],
+    images: [
+      { id: 521, product_id: 52, image_url: "/coord-3.jpg", sort_order: 0, alt_text: "Kaveri Embroidered Silk Shirt Co-ord Set" }
+    ]
+  },
+  {
+    id: 53,
+    name: "Vaidehi Royal Blue Linen Co-ord Set",
+    slug: "vaidehi-royal-blue-linen-coord-set",
+    description: "A chic royal blue tailored co-ord set featuring a mandarin collar button-down tunic top with roll-up sleeve tabs and relaxed wide-leg crop pants. Perfect for everyday office chic or casual luncheons.",
+    fabric: "Pure Organic Linen",
+    care_instructions: "Machine wash cold on gentle cycle.",
+    category_id: 1,
+    category: categories[0],
+    base_price: 2950,
+    mrp: 3700,
+    sku: "MBK-CO-053",
+    status: "active",
+    is_featured: false,
+    is_bestseller: true,
+    is_new_arrival: true,
+    rating: 4.6,
+    review_count: 34,
+    tags: ["linen","royal-blue","workwear","everyday"],
+    created_at: "2026-08-01T10:12:00.000Z",
+    variants: [
+      { id: 531, product_id: 53, size: "S", color: "Royal Blue", color_hex: "#2B4C7E", sku: "MBK-CO-053-S", stock_qty: 18 },
+      { id: 532, product_id: 53, size: "M", color: "Royal Blue", color_hex: "#2B4C7E", sku: "MBK-CO-053-M", stock_qty: 22 },
+      { id: 533, product_id: 53, size: "L", color: "Royal Blue", color_hex: "#2B4C7E", sku: "MBK-CO-053-L", stock_qty: 11 }
+    ],
+    images: [
+      { id: 531, product_id: 53, image_url: "/coord-4.jpg", sort_order: 0, alt_text: "Vaidehi Royal Blue Linen Co-ord Set" }
+    ]
+  },
+  {
+    id: 54,
+    name: "Vasundhara Botanical Print Fusion Co-ord Set",
+    slug: "vasundhara-botanical-print-fusion-coord-set",
+    description: "A vibrant multi-color botanical floral print co-ord set featuring a soft peach and teal collar tunic with three-quarter sleeves and matching high-waisted flared trousers.",
+    fabric: "Modal Rayon Blend",
+    care_instructions: "Gentle hand wash cold.",
+    category_id: 1,
+    category: categories[0],
+    base_price: 3100,
+    mrp: 3900,
+    sku: "MBK-CO-054",
+    status: "active",
+    is_featured: true,
+    is_bestseller: false,
+    is_new_arrival: true,
+    rating: 4.8,
+    review_count: 26,
+    tags: ["botanical","floral","fusion","rayon"],
+    created_at: "2026-08-01T10:15:00.000Z",
+    variants: [
+      { id: 541, product_id: 54, size: "S", color: "Peach & Teal", color_hex: "#F8B195", sku: "MBK-CO-054-S", stock_qty: 14 },
+      { id: 542, product_id: 54, size: "M", color: "Peach & Teal", color_hex: "#F8B195", sku: "MBK-CO-054-M", stock_qty: 19 },
+      { id: 543, product_id: 54, size: "L", color: "Peach & Teal", color_hex: "#F8B195", sku: "MBK-CO-054-L", stock_qty: 10 }
+    ],
+    images: [
+      { id: 541, product_id: 54, image_url: "/coord-5.jpg", sort_order: 0, alt_text: "Vasundhara Botanical Print Fusion Co-ord Set" }
+    ]
+  },
+  {
+    id: 55,
+    name: "Meera Maroon Embroidered Beige Linen Co-ord Set",
+    slug: "meera-maroon-embroidered-beige-linen-coord-set",
+    description: "A serene beige handloom linen tunic and palazzo set. Features intricate maroon yoke embroidery, flared three-quarter sleeves, a split notch neckline, and matching embroidered hem trousers.",
+    fabric: "Handloom Cotton-Linen Blend",
+    care_instructions: "Hand wash cold separately.",
+    category_id: 1,
+    category: categories[0],
+    base_price: 3400,
+    mrp: 4200,
+    sku: "MBK-CO-055",
+    status: "active",
+    is_featured: true,
+    is_bestseller: false,
+    is_new_arrival: true,
+    rating: 4.8,
+    review_count: 31,
+    tags: ["linen","beige","embroidered","new-arrival"],
+    created_at: "2026-08-01T10:20:00.000Z",
+    variants: [
+      { id: 551, product_id: 55, size: "S", color: "Beige & Maroon", color_hex: "#F5F5DC", sku: "MBK-CO-055-S", stock_qty: 12 },
+      { id: 552, product_id: 55, size: "M", color: "Beige & Maroon", color_hex: "#F5F5DC", sku: "MBK-CO-055-M", stock_qty: 18 },
+      { id: 553, product_id: 55, size: "L", color: "Beige & Maroon", color_hex: "#F5F5DC", sku: "MBK-CO-055-L", stock_qty: 10 }
+    ],
+    images: [
+      { id: 551, product_id: 55, image_url: "/coord-6.jpg", sort_order: 0, alt_text: "Meera Maroon Embroidered Beige Linen Co-ord Set" }
+    ]
+  },
+  {
+    id: 56,
+    name: "Maitreyi Olive Leaf Print Silk Shirt Co-ord Set",
+    slug: "maitreyi-olive-leaf-print-silk-shirt-coord-set",
+    description: "An elegant sage olive silk shirt tunic and pants set decorated with delicate botanical leaf prints. Styled with a classic collar, button-down front, and wide relaxed trousers.",
+    fabric: "Mulberry Silk Blend",
+    care_instructions: "Dry clean recommended.",
+    category_id: 1,
+    category: categories[0],
+    base_price: 3850,
+    mrp: 4800,
+    sku: "MBK-CO-056",
+    status: "active",
+    is_featured: true,
+    is_bestseller: true,
+    is_new_arrival: true,
+    rating: 4.9,
+    review_count: 42,
+    tags: ["silk","olive","botanical","bestseller"],
+    created_at: "2026-08-01T10:21:00.000Z",
+    variants: [
+      { id: 561, product_id: 56, size: "S", color: "Sage Olive", color_hex: "#9CAF88", sku: "MBK-CO-056-S", stock_qty: 14 },
+      { id: 562, product_id: 56, size: "M", color: "Sage Olive", color_hex: "#9CAF88", sku: "MBK-CO-056-M", stock_qty: 19 },
+      { id: 563, product_id: 56, size: "L", color: "Sage Olive", color_hex: "#9CAF88", sku: "MBK-CO-056-L", stock_qty: 9 }
+    ],
+    images: [
+      { id: 561, product_id: 56, image_url: "/coord-7.jpg", sort_order: 0, alt_text: "Maitreyi Olive Leaf Print Silk Shirt Co-ord Set" }
+    ]
+  },
+  {
+    id: 57,
+    name: "Padmini Yellow Double-Breasted Jacket Co-ord Set",
+    slug: "padmini-yellow-double-breasted-jacket-coord-set",
+    description: "A cheerful marigold yellow double-breasted jacket tunic paired with matching wide-leg trousers. Embellished with subtle white floral print motifs and wooden button accents.",
+    fabric: "Pure Organic Cotton",
+    care_instructions: "Machine wash cold gentle.",
+    category_id: 1,
+    category: categories[0],
+    base_price: 3200,
+    mrp: 4000,
+    sku: "MBK-CO-057",
+    status: "active",
+    is_featured: false,
+    is_bestseller: true,
+    is_new_arrival: true,
+    rating: 4.7,
+    review_count: 28,
+    tags: ["cotton","yellow","jacket","cheerful"],
+    created_at: "2026-08-01T10:22:00.000Z",
+    variants: [
+      { id: 571, product_id: 57, size: "S", color: "Marigold Yellow", color_hex: "#EAA221", sku: "MBK-CO-057-S", stock_qty: 11 },
+      { id: 572, product_id: 57, size: "M", color: "Marigold Yellow", color_hex: "#EAA221", sku: "MBK-CO-057-M", stock_qty: 15 },
+      { id: 573, product_id: 57, size: "L", color: "Marigold Yellow", color_hex: "#EAA221", sku: "MBK-CO-057-L", stock_qty: 8 }
+    ],
+    images: [
+      { id: 571, product_id: 57, image_url: "/coord-8.jpg", sort_order: 0, alt_text: "Padmini Yellow Double-Breasted Jacket Co-ord Set" }
+    ]
+  },
+  {
+    id: 58,
+    name: "Vartika Abstract Pastel Marble Print Silk Co-ord Set",
+    slug: "vartika-abstract-pastel-marble-print-silk-coord-set",
+    description: "An artistic multi-color pastel marble print silk co-ord set. Features a button-down collar shirt top and flowing wide trousers in soft swirling hues of turquoise, peach, and coral.",
+    fabric: "Satin Silk",
+    care_instructions: "Dry clean only.",
+    category_id: 1,
+    category: categories[0],
+    base_price: 4400,
+    mrp: 5600,
+    sku: "MBK-CO-058",
+    status: "active",
+    is_featured: true,
+    is_bestseller: false,
+    is_new_arrival: true,
+    rating: 4.9,
+    review_count: 36,
+    tags: ["silk","marble-print","abstract","pastel"],
+    created_at: "2026-08-01T10:23:00.000Z",
+    variants: [
+      { id: 581, product_id: 58, size: "S", color: "Multi Pastel", color_hex: "#FFD1DC", sku: "MBK-CO-058-S", stock_qty: 13 },
+      { id: 582, product_id: 58, size: "M", color: "Multi Pastel", color_hex: "#FFD1DC", sku: "MBK-CO-058-M", stock_qty: 17 },
+      { id: 583, product_id: 58, size: "L", color: "Multi Pastel", color_hex: "#FFD1DC", sku: "MBK-CO-058-L", stock_qty: 10 }
+    ],
+    images: [
+      { id: 581, product_id: 58, image_url: "/coord-9.jpg", sort_order: 0, alt_text: "Vartika Abstract Pastel Marble Print Silk Co-ord Set" }
+    ]
+  },
+  
+
+
   {
     id: 501,
     name: "Mehrunissa Royal Velvet Bridal Lehenga",
@@ -638,90 +874,6 @@ export const products: Product[] = [
     ]
   },
   {
-    id: 2,
-    name: "Nirmala Embroidered Co-ord Set",
-    slug: "nirmala-embroidered-coord-set",
-    description: "The Nirmala Co-ord Set is a celebration of traditional kantha embroidery on contemporary silhouettes. Featuring a cropped top with delicate kantha work and wide-leg trousers in soft cotton, this set transitions effortlessly from day to dusk.",
-    fabric: "100% Handloom Cotton",
-    care_instructions: "Hand wash in cold water. Lay flat to dry. Iron on low heat.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 3200,
-    mrp: 3200,
-    sku: "MBK-CO-001",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.6,
-    review_count: 47,
-    tags: ["kantha","cotton","everyday","new-arrival"],
-    created_at: "2024-12-15T10:00:00Z",
-    variants: [
-      {
-            "id": 8,
-            "product_id": 2,
-            "size": "XS",
-            "color": "Ivory",
-            "color_hex": "#FAF6F0",
-            "sku": "MBK-CO-001-XS-IV",
-            "stock_qty": 5
-      },
-      {
-            "id": 9,
-            "product_id": 2,
-            "size": "S",
-            "color": "Ivory",
-            "color_hex": "#FAF6F0",
-            "sku": "MBK-CO-001-S-IV",
-            "stock_qty": 12
-      },
-      {
-            "id": 10,
-            "product_id": 2,
-            "size": "M",
-            "color": "Ivory",
-            "color_hex": "#FAF6F0",
-            "sku": "MBK-CO-001-M-IV",
-            "stock_qty": 9
-      },
-      {
-            "id": 11,
-            "product_id": 2,
-            "size": "L",
-            "color": "Ivory",
-            "color_hex": "#FAF6F0",
-            "sku": "MBK-CO-001-L-IV",
-            "stock_qty": 6
-      },
-      {
-            "id": 12,
-            "product_id": 2,
-            "size": "M",
-            "color": "Dusty Mauve",
-            "color_hex": "#8C5B6E",
-            "sku": "MBK-CO-001-M-DM",
-            "stock_qty": 4
-      }
-],
-    images: [
-      {
-            "id": 4,
-            "product_id": 2,
-            "image_url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=85",
-            "sort_order": 0,
-            "alt_text": "Nirmala Embroidered Co-ord Set — Ivory"
-      },
-      {
-            "id": 5,
-            "product_id": 2,
-            "image_url": "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&q=85",
-            "sort_order": 1,
-            "alt_text": "Nirmala Co-ord Set — detail shot"
-      }
-]
-  },
-  {
     id: 5,
     name: "Zara Fusion Maxi Dress",
     slug: "zara-fusion-maxi-dress",
@@ -820,1254 +972,6 @@ export const products: Product[] = [
             "image_url": "https://images.unsplash.com/photo-1572804013427-4d7ca7268217?w=800&q=85",
             "sort_order": 1,
             "alt_text": "Zara Fusion Dress — ikkat print detail"
-      }
-]
-  },
-  {
-    id: 8,
-    name: "Sitara Wide-Leg Palazzo",
-    slug: "sitara-wide-leg-palazzo",
-    description: "Flowing wide-leg palazzos in soft cotton-silk blend with delicate ditsy print. The Sitara Palazzo features a comfortable elasticated waist and full-length silhouette — pair with any top or kurta for an effortless look.",
-    fabric: "Cotton-Silk Blend",
-    care_instructions: "Machine wash cold. Iron while slightly damp.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 1800,
-    mrp: 1800,
-    sku: "MBK-BT-001",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.4,
-    review_count: 52,
-    tags: ["palazzo","everyday","new-arrival","cotton"],
-    created_at: "2025-01-08T10:00:00Z",
-    variants: [
-      {
-            "id": 37,
-            "product_id": 8,
-            "size": "XS",
-            "color": "Lavender Mist",
-            "color_hex": "#C3A4BF",
-            "sku": "MBK-BT-001-XS-LM",
-            "stock_qty": 10
-      },
-      {
-            "id": 38,
-            "product_id": 8,
-            "size": "S",
-            "color": "Lavender Mist",
-            "color_hex": "#C3A4BF",
-            "sku": "MBK-BT-001-S-LM",
-            "stock_qty": 14
-      },
-      {
-            "id": 39,
-            "product_id": 8,
-            "size": "M",
-            "color": "Lavender Mist",
-            "color_hex": "#C3A4BF",
-            "sku": "MBK-BT-001-M-LM",
-            "stock_qty": 12
-      },
-      {
-            "id": 40,
-            "product_id": 8,
-            "size": "L",
-            "color": "Lavender Mist",
-            "color_hex": "#C3A4BF",
-            "sku": "MBK-BT-001-L-LM",
-            "stock_qty": 8
-      }
-],
-    images: [
-      {
-            "id": 15,
-            "product_id": 8,
-            "image_url": "https://images.unsplash.com/photo-1551489186-cf8726f514f8?w=800&q=85",
-            "sort_order": 0,
-            "alt_text": "Sitara Wide-Leg Palazzo — Lavender Mist"
-      }
-]
-  },
-  {
-    id: 50,
-    name: "Aashima Linen Co-ord Set",
-    slug: "aashima-linen-coord-set",
-    description: "An elegant two-piece co-ord set crafted from premium linen. Features a flared tunic top with subtle gold embroidery and straight-fit matching trousers. Extremely comfortable and perfect for warm festive days.",
-    fabric: "Premium Linen Blend",
-    care_instructions: "Dry clean recommended. Hand wash cold separately.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2800,
-    mrp: 3500,
-    sku: "MBK-CO-050",
-    status: "active",
-    is_featured: true,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.7,
-    review_count: 32,
-    tags: ["linen","minimalist","new-arrival"],
-    created_at: "2026-07-30T15:28:58.395Z",
-    variants: [
-      {
-            "id": 1050,
-            "product_id": 50,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-050-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2050,
-            "product_id": 50,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-050-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3050,
-            "product_id": 50,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-050-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1050,
-            "product_id": 50,
-            "image_url": "/coord-set-1.png",
-            "sort_order": 0,
-            "alt_text": "Aashima Linen Co-ord Set"
-      }
-]
-  },
-  {
-    id: 51,
-    name: "Veda Handloom Silk Co-ord Set",
-    slug: "veda-handloom-silk-coord-set",
-    description: "A luxurious fusion set woven from traditional Chanderi silk. Designed with a short kurta top and pleated palazzo pants, showing off rich textures and a regal drape.",
-    fabric: "Handloom Chanderi Silk",
-    care_instructions: "Dry clean only. Store in muslin cloth.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 4500,
-    mrp: 5200,
-    sku: "MBK-CO-051",
-    status: "active",
-    is_featured: false,
-    is_bestseller: true,
-    is_new_arrival: true,
-    rating: 4.9,
-    review_count: 18,
-    tags: ["silk","royal","festive"],
-    created_at: "2026-07-30T15:28:58.403Z",
-    variants: [
-      {
-            "id": 1051,
-            "product_id": 51,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-051-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2051,
-            "product_id": 51,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-051-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3051,
-            "product_id": 51,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-051-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1051,
-            "product_id": 51,
-            "image_url": "/coord-set-2.png",
-            "sort_order": 0,
-            "alt_text": "Veda Handloom Silk Co-ord Set"
-      }
-]
-  },
-  {
-    id: 52,
-    name: "Ishika Shibori Indigo Co-ord Set",
-    slug: "ishika-shibori-indigo-coord-set",
-    description: "Beautiful hand-tied Shibori pattern in natural indigo. Features an asymmetrical high-low tunic and cropped slim pants.",
-    fabric: "100% Cotton Mulmul",
-    care_instructions: "Hand wash cold separately. Dry in shade.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2400,
-    mrp: 2999,
-    sku: "MBK-CO-052",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.5,
-    review_count: 24,
-    tags: ["shibori","indigo","cotton"],
-    created_at: "2026-07-30T15:28:58.403Z",
-    variants: [
-      {
-            "id": 1052,
-            "product_id": 52,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-052-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2052,
-            "product_id": 52,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-052-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3052,
-            "product_id": 52,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-052-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1052,
-            "product_id": 52,
-            "image_url": "/coord-set-3.png",
-            "sort_order": 0,
-            "alt_text": "Ishika Shibori Indigo Co-ord Set"
-      }
-]
-  },
-  {
-    id: 53,
-    name: "Charvi Emerald Silk Co-ord Set",
-    slug: "charvi-emerald-silk-coord-set",
-    description: "An elegant jewel-toned co-ord set. Features a cowl-neck tunic top and relaxed silk trousers. Lends an air of effortless luxury.",
-    fabric: "Modal Silk",
-    care_instructions: "Dry clean only.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 3800,
-    mrp: 4500,
-    sku: "MBK-CO-053",
-    status: "active",
-    is_featured: true,
-    is_bestseller: true,
-    is_new_arrival: false,
-    rating: 4.8,
-    review_count: 45,
-    tags: ["silk","emerald","luxury"],
-    created_at: "2026-07-30T15:28:58.403Z",
-    variants: [
-      {
-            "id": 1053,
-            "product_id": 53,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-053-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2053,
-            "product_id": 53,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-053-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3053,
-            "product_id": 53,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-053-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1053,
-            "product_id": 53,
-            "image_url": "/coord-set-4.png",
-            "sort_order": 0,
-            "alt_text": "Charvi Emerald Silk Co-ord Set"
-      }
-]
-  },
-  {
-    id: 54,
-    name: "Avantika Floral Print Co-ord Set",
-    slug: "avantika-floral-print-coord-set",
-    description: "Bright mustard yellow hues paired with rich hand-drawn floral prints. Includes a button-down resort shirt and straight trousers.",
-    fabric: "Rayon Linen",
-    care_instructions: "Machine wash cold on gentle cycle.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2200,
-    mrp: 2600,
-    sku: "MBK-CO-054",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.6,
-    review_count: 15,
-    tags: ["floral","mustard","resortwear"],
-    created_at: "2026-07-30T15:28:58.403Z",
-    variants: [
-      {
-            "id": 1054,
-            "product_id": 54,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-054-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2054,
-            "product_id": 54,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-054-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3054,
-            "product_id": 54,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-054-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1054,
-            "product_id": 54,
-            "image_url": "/coord-set-5.png",
-            "sort_order": 0,
-            "alt_text": "Avantika Floral Print Co-ord Set"
-      }
-]
-  },
-  {
-    id: 55,
-    name: "Padmini Terracotta Clay Co-ord Set",
-    slug: "padmini-terracotta-clay-coord-set",
-    description: "Inspired by the warm hues of terracotta pottery. This relaxed two-piece features a pocket tunic and straight trousers in premium linen.",
-    fabric: "Pure Linen",
-    care_instructions: "Wash cold, iron damp.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2900,
-    mrp: 3499,
-    sku: "MBK-CO-055",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.4,
-    review_count: 12,
-    tags: ["linen","terracotta","casual"],
-    created_at: "2026-07-30T15:28:58.403Z",
-    variants: [
-      {
-            "id": 1055,
-            "product_id": 55,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-055-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2055,
-            "product_id": 55,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-055-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3055,
-            "product_id": 55,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-055-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1055,
-            "product_id": 55,
-            "image_url": "/coord-set-6.png",
-            "sort_order": 0,
-            "alt_text": "Padmini Terracotta Clay Co-ord Set"
-      }
-]
-  },
-  {
-    id: 56,
-    name: "Maitreyi Sage Green Co-ord Set",
-    slug: "maitreyi-sage-green-coord-set",
-    description: "Minimalist co-ord set with refined loop buttons and cuff details. Delivers a calming, sophisticated look.",
-    fabric: "Khadi Cotton",
-    care_instructions: "Hand wash separately. Iron on reverse.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2600,
-    mrp: 3200,
-    sku: "MBK-CO-056",
-    status: "active",
-    is_featured: true,
-    is_bestseller: false,
-    is_new_arrival: false,
-    rating: 4.8,
-    review_count: 27,
-    tags: ["khadi","sage","minimalist"],
-    created_at: "2026-07-30T15:28:58.403Z",
-    variants: [
-      {
-            "id": 1056,
-            "product_id": 56,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-056-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2056,
-            "product_id": 56,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-056-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3056,
-            "product_id": 56,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-056-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1056,
-            "product_id": 56,
-            "image_url": "/coord-set-7.png",
-            "sort_order": 0,
-            "alt_text": "Maitreyi Sage Green Co-ord Set"
-      }
-]
-  },
-  {
-    id: 57,
-    name: "Hansika Bandhani Silk Co-ord Set",
-    slug: "hansika-bandhani-silk-coord-set",
-    description: "Royal crimson red hues adorned with authentic tie-dye Bandhani patterns. Ideal for modern festive gatherings.",
-    fabric: "Gaji Silk",
-    care_instructions: "Dry clean only.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 4900,
-    mrp: 5999,
-    sku: "MBK-CO-057",
-    status: "active",
-    is_featured: false,
-    is_bestseller: true,
-    is_new_arrival: true,
-    rating: 4.9,
-    review_count: 19,
-    tags: ["bandhani","silk","festive"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1057,
-            "product_id": 57,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-057-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2057,
-            "product_id": 57,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-057-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3057,
-            "product_id": 57,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-057-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1057,
-            "product_id": 57,
-            "image_url": "/coord-set-8.png",
-            "sort_order": 0,
-            "alt_text": "Hansika Bandhani Silk Co-ord Set"
-      }
-]
-  },
-  {
-    id: 58,
-    name: "Ananya Black Ikat Co-ord Set",
-    slug: "ananya-black-ikat-coord-set",
-    description: "Stunning black base featuring double Ikat geometric weaves. Designed with a short peplum top and matching pants.",
-    fabric: "Pochampally Cotton Ikat",
-    care_instructions: "Hand wash cold separately. Mild detergent.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 3100,
-    mrp: 3800,
-    sku: "MBK-CO-058",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: false,
-    rating: 4.7,
-    review_count: 38,
-    tags: ["ikat","black","handloom"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1058,
-            "product_id": 58,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-058-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2058,
-            "product_id": 58,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-058-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3058,
-            "product_id": 58,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-058-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1058,
-            "product_id": 58,
-            "image_url": "/coord-set-9.png",
-            "sort_order": 0,
-            "alt_text": "Ananya Black Ikat Co-ord Set"
-      }
-]
-  },
-  {
-    id: 59,
-    name: "Vartika Turquoise Fusion Co-ord Set",
-    slug: "vartika-turquoise-fusion-coord-set",
-    description: "A vibrant turquoise fusion set with a stylish wrap-around front tie and tapered pants. Makes a chic wardrobe addition.",
-    fabric: "Satin Crepe",
-    care_instructions: "Dry clean or gentle hand wash.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 3400,
-    mrp: 3999,
-    sku: "MBK-CO-059",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.5,
-    review_count: 14,
-    tags: ["turquoise","satin","fusion"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1059,
-            "product_id": 59,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-059-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2059,
-            "product_id": 59,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-059-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3059,
-            "product_id": 59,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-059-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1059,
-            "product_id": 59,
-            "image_url": "/coord-set-10.png",
-            "sort_order": 0,
-            "alt_text": "Vartika Turquoise Fusion Co-ord Set"
-      }
-]
-  },
-  {
-    id: 60,
-    name: "Vasundhara Marigold Ikat Co-ord Set",
-    slug: "vasundhara-marigold-ikat-coord-set",
-    description: "Joyful marigold yellow Ikat weaves. Features a front slit long tunic top and comfortable trousers.",
-    fabric: "Handloom Cotton Ikat",
-    care_instructions: "Wash separately in cold water.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2700,
-    mrp: 3200,
-    sku: "MBK-CO-060",
-    status: "active",
-    is_featured: true,
-    is_bestseller: false,
-    is_new_arrival: false,
-    rating: 4.6,
-    review_count: 22,
-    tags: ["ikat","yellow","cotton"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1060,
-            "product_id": 60,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-060-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2060,
-            "product_id": 60,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-060-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3060,
-            "product_id": 60,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-060-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1060,
-            "product_id": 60,
-            "image_url": "/coord-set-11.png",
-            "sort_order": 0,
-            "alt_text": "Vasundhara Marigold Ikat Co-ord Set"
-      }
-]
-  },
-  {
-    id: 61,
-    name: "Kalyani Velvet Plum Co-ord Set",
-    slug: "kalyani-velvet-plum-coord-set",
-    description: "Luxurious plum purple velvet co-ord set with delicate hand-embroidery. Provides a cozy yet royal style.",
-    fabric: "Premium Silk Velvet",
-    care_instructions: "Dry clean only.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 5200,
-    mrp: 6500,
-    sku: "MBK-CO-061",
-    status: "active",
-    is_featured: false,
-    is_bestseller: true,
-    is_new_arrival: false,
-    rating: 4.9,
-    review_count: 31,
-    tags: ["velvet","plum","winter"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1061,
-            "product_id": 61,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-061-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2061,
-            "product_id": 61,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-061-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3061,
-            "product_id": 61,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-061-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1061,
-            "product_id": 61,
-            "image_url": "/coord-set-12.png",
-            "sort_order": 0,
-            "alt_text": "Kalyani Velvet Plum Co-ord Set"
-      }
-]
-  },
-  {
-    id: 62,
-    name: "Dakshayani Taupe Linen Co-ord Set",
-    slug: "dakshayani-taupe-linen-coord-set",
-    description: "Earth-toned minimalist coordinates designed for daily comfort. Tunic top with relaxed wide pants.",
-    fabric: "Organic Linen",
-    care_instructions: "Wash cold, line dry.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2500,
-    mrp: 2999,
-    sku: "MBK-CO-062",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: false,
-    rating: 4.3,
-    review_count: 9,
-    tags: ["linen","taupe","minimalist"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1062,
-            "product_id": 62,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-062-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2062,
-            "product_id": 62,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-062-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3062,
-            "product_id": 62,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-062-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1062,
-            "product_id": 62,
-            "image_url": "/coord-set-13.png",
-            "sort_order": 0,
-            "alt_text": "Dakshayani Taupe Linen Co-ord Set"
-      }
-]
-  },
-  {
-    id: 63,
-    name: "Mayuri Lilac Blossom Co-ord Set",
-    slug: "mayuri-lilac-blossom-coord-set",
-    description: "Vibrant lilac floral print on breathable silk georgette. Fully lined with cotton mulmul.",
-    fabric: "Silk Georgette",
-    care_instructions: "Dry clean recommended.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 3600,
-    mrp: 4200,
-    sku: "MBK-CO-063",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.7,
-    review_count: 17,
-    tags: ["lilac","floral","georgette"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1063,
-            "product_id": 63,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-063-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2063,
-            "product_id": 63,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-063-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3063,
-            "product_id": 63,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-063-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1063,
-            "product_id": 63,
-            "image_url": "/coord-set-14.png",
-            "sort_order": 0,
-            "alt_text": "Mayuri Lilac Blossom Co-ord Set"
-      }
-]
-  },
-  {
-    id: 64,
-    name: "Suhasini Charcoal Silk Co-ord Set",
-    slug: "suhasini-charcoal-silk-coord-set",
-    description: "A contemporary charcoal grey fusion co-ord set with high collar neckline and gold border accents.",
-    fabric: "Tussar Silk",
-    care_instructions: "Dry clean only.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 4300,
-    mrp: 4999,
-    sku: "MBK-CO-064",
-    status: "active",
-    is_featured: true,
-    is_bestseller: false,
-    is_new_arrival: false,
-    rating: 4.8,
-    review_count: 23,
-    tags: ["silk","charcoal","festive"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1064,
-            "product_id": 64,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-064-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2064,
-            "product_id": 64,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-064-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3064,
-            "product_id": 64,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-064-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1064,
-            "product_id": 64,
-            "image_url": "/coord-set-15.png",
-            "sort_order": 0,
-            "alt_text": "Suhasini Charcoal Silk Co-ord Set"
-      }
-]
-  },
-  {
-    id: 65,
-    name: "Indu Coral Pink Co-ord Set",
-    slug: "indu-coral-pink-coord-set",
-    description: "Beautiful coral pink hues accented with delicate hand-stitched detailing on pocket corners and neckline.",
-    fabric: "Cotton Linen",
-    care_instructions: "Hand wash cold separately.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2600,
-    mrp: 3100,
-    sku: "MBK-CO-065",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.5,
-    review_count: 11,
-    tags: ["coral","cotton","summer"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1065,
-            "product_id": 65,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-065-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2065,
-            "product_id": 65,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-065-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3065,
-            "product_id": 65,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-065-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1065,
-            "product_id": 65,
-            "image_url": "/coord-set-16.png",
-            "sort_order": 0,
-            "alt_text": "Indu Coral Pink Co-ord Set"
-      }
-]
-  },
-  {
-    id: 66,
-    name: "Pratima Mustard Stripes Co-ord Set",
-    slug: "pratima-mustard-stripes-coord-set",
-    description: "Modern vertical stripes on handloom cotton. Designed with a shirt collar tunic and trousers.",
-    fabric: "Handloom Cotton",
-    care_instructions: "Wash cold, iron warm.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2300,
-    mrp: 2799,
-    sku: "MBK-CO-066",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: false,
-    rating: 4.4,
-    review_count: 15,
-    tags: ["stripes","yellow","cotton"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1066,
-            "product_id": 66,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-066-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2066,
-            "product_id": 66,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-066-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3066,
-            "product_id": 66,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-066-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1066,
-            "product_id": 66,
-            "image_url": "/coord-set-17.png",
-            "sort_order": 0,
-            "alt_text": "Pratima Mustard Stripes Co-ord Set"
-      }
-]
-  },
-  {
-    id: 67,
-    name: "Vaidehi Royal Blue Co-ord Set",
-    slug: "vaidehi-royal-blue-coord-set",
-    description: "Rich royal blue shade styled with clean geometric cuts and a sophisticated belt.",
-    fabric: "Modal Silk",
-    care_instructions: "Dry clean only.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 3900,
-    mrp: 4600,
-    sku: "MBK-CO-067",
-    status: "active",
-    is_featured: false,
-    is_bestseller: true,
-    is_new_arrival: false,
-    rating: 4.8,
-    review_count: 28,
-    tags: ["blue","silk","belted"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1067,
-            "product_id": 67,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-067-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2067,
-            "product_id": 67,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-067-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3067,
-            "product_id": 67,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-067-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1067,
-            "product_id": 67,
-            "image_url": "/coord-set-18.png",
-            "sort_order": 0,
-            "alt_text": "Vaidehi Royal Blue Co-ord Set"
-      }
-]
-  },
-  {
-    id: 68,
-    name: "Chitrangada Block-Print Co-ord Set",
-    slug: "chitrangada-block-print-coord-set",
-    description: "Intricate floral block-print coordinates in warm sand and peach tones.",
-    fabric: "Chanderi Silk",
-    care_instructions: "Dry clean only.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 4100,
-    mrp: 4800,
-    sku: "MBK-CO-068",
-    status: "active",
-    is_featured: true,
-    is_bestseller: false,
-    is_new_arrival: false,
-    rating: 4.6,
-    review_count: 16,
-    tags: ["chanderi","block-print","peach"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1068,
-            "product_id": 68,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-068-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2068,
-            "product_id": 68,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-068-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3068,
-            "product_id": 68,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-068-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1068,
-            "product_id": 68,
-            "image_url": "/coord-set-19.png",
-            "sort_order": 0,
-            "alt_text": "Chitrangada Block-Print Co-ord Set"
-      }
-]
-  },
-  {
-    id: 69,
-    name: "Gauri Peach Blush Co-ord Set",
-    slug: "gauri-peach-blush-coord-set",
-    description: "A soft, airy cotton set with beautiful lace inserts on sleeves and hemline.",
-    fabric: "100% Khadi Cotton",
-    care_instructions: "Hand wash cold separately.",
-    category_id: 1,
-    category: categories[0],
-    base_price: 2750,
-    mrp: 3200,
-    sku: "MBK-CO-069",
-    status: "active",
-    is_featured: false,
-    is_bestseller: false,
-    is_new_arrival: true,
-    rating: 4.7,
-    review_count: 21,
-    tags: ["peach","khadi","lace"],
-    created_at: "2026-07-30T15:28:58.404Z",
-    variants: [
-      {
-            "id": 1069,
-            "product_id": 69,
-            "size": "S",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-069-S",
-            "stock_qty": 15
-      },
-      {
-            "id": 2069,
-            "product_id": 69,
-            "size": "M",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-069-M",
-            "stock_qty": 20
-      },
-      {
-            "id": 3069,
-            "product_id": 69,
-            "size": "L",
-            "color": "Peach",
-            "color_hex": "#FAF0EB",
-            "sku": "MBK-CO-069-L",
-            "stock_qty": 10
-      }
-],
-    images: [
-      {
-            "id": 1069,
-            "product_id": 69,
-            "image_url": "/coord-set-20.png",
-            "sort_order": 0,
-            "alt_text": "Gauri Peach Blush Co-ord Set"
       }
 ]
   },

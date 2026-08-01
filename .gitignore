@@ -26,3 +26,8 @@ dist-ssr
 # Zip archives
 *.zip
 
+# Environment & scratch
+.env
+scratch/
+
+

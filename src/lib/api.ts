@@ -4,12 +4,12 @@
 
 import * as mock from './mockData';
 
-// Force a one-time database cache clear to sync hero banner new order
-if (!localStorage.getItem('meraki_db_version_v51')) {
+// Force a one-time database cache clear to sync updated products
+if (!localStorage.getItem('meraki_db_version_v58')) {
   localStorage.removeItem('meraki_products');
   localStorage.removeItem('meraki_categories');
   localStorage.removeItem('meraki_hero_banners');
-  localStorage.setItem('meraki_db_version_v51', '51');
+  localStorage.setItem('meraki_db_version_v58', '58');
 }
 
 
